@@ -31,6 +31,10 @@ public class RestaurantApplication {
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/login").permitAll()
+					.antMatchers(HttpMethod.POST, "/user").permitAll()
+					.antMatchers(HttpMethod.GET, "/food/day").permitAll()
+					.antMatchers(HttpMethod.GET, "/food/week").permitAll()
+					.antMatchers(HttpMethod.GET, "/imageFood/id/*").permitAll()
 					.antMatchers(
 							HttpMethod.GET,
 							"/",
@@ -48,32 +52,4 @@ public class RestaurantApplication {
 					.anyRequest().authenticated();
 		}
 	}
-	// @EnableWebSecurity
-	// @Configuration
-	// // @EnableSwagger2
-	// class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	// 	@Override
-	// 	protected void configure(HttpSecurity http) throws Exception {
-	// 		http.csrf().disable()
-	// 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-	// 				.authorizeRequests()
-	// 				.antMatchers(HttpMethod.POST, "/login").permitAll()
-	// 				.antMatchers(
-	// 						HttpMethod.GET,
-	// 						"/",
-	// 						"/v2/api-docs", // swagger
-	// 						"/webjars/**", // swagger-ui webjars
-	// 						"/swagger-resources/**", // swagger-ui resources
-	// 						"/configuration/**", // swagger configuration
-	// 						"/*.html",
-	// 						"/favicon.ico",
-	// 						"/**/*.html",
-	// 						"/**/*.css",
-	// 						"/**/*.js")
-	// 				.permitAll()
-	// 				.antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-	// 				.anyRequest().authenticated();
-	// 	}
-	// }
 }

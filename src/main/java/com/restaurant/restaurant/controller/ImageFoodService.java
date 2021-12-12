@@ -23,10 +23,10 @@ public class ImageFoodService implements ImageFoodServiceInterface {
     public ResponseEntity<String> addImageFood(ImageFood imageFood) {
         if (String.valueOf(imageFood.getIdFood()) == "")
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("L'image doit être rattachée à un plat");
-        if (imageFood.getImage() == null)
+        if (imageFood.getImageUrl() == null)
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("L'image est requis");
         /* Possible de comparer deux bytes ?? Flemme de chercher */
-        if (imageFoodDao.findByImage(imageFood.getImage()) != null)
+        if (imageFoodDao.findByImageUrl(imageFood.getImageUrl()) != null)
             return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("L'image existe déjà");
         imageFoodDao.save(imageFood);
         return ResponseEntity.ok().build();

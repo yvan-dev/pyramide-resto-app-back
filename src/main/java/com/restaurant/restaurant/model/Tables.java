@@ -22,6 +22,5 @@ public class Tables {
     private int id;
     private int idRestaurant;
     private int nbPlaces = 1;
-    // @Column(name = "is_available", columnDefinition = "BOOLEAN")
     private boolean isAvailable = false;
 }

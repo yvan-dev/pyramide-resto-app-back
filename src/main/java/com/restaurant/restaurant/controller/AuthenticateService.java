@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.restaurant.restaurant.dao.UserDao;
 import com.restaurant.restaurant.interfac.AuthenticateServiceInterface;
 import com.restaurant.restaurant.model.User;
+import com.restaurant.restaurant.model.UserAuthenticate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,16 +29,14 @@ public class AuthenticateService implements AuthenticateServiceInterface {
     UserDao userDao;
 
     @Override
-    public ResponseEntity<User> login(User user) {
+    public ResponseEntity<User> login(UserAuthenticate user) {
         User userDb = userDao.findByEmail(user.getEmail());
         if (userDb == null || !BCrypt.checkpw(user.getPassword(), userDb.getPassword()))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         String token = getJWTToken(user.getEmail());
-        System.out.println("token: " + token);
-        user = userDb;
-        user.setToken(token);
-        userDao.save(user);
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        userDb.setToken(token);
+        userDao.save(userDb);
+        return ResponseEntity.status(HttpStatus.OK).body(userDb);
     }
 
     private String getJWTToken(String login) {

@@ -1,5 +1,8 @@
 package com.restaurant.restaurant.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.restaurant.restaurant.dao.FoodDao;
@@ -52,6 +55,29 @@ public class FoodService implements FoodServiceInterface {
         if (food != null)
             return ResponseEntity.status(HttpStatus.OK).body(food);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @Override
+    public ResponseEntity<List<Food>> getFoodOfCurrentDay() {
+        List<Food> foods = foodDao.findByDate(LocalDate.now());
+        if (foods.size() == 0)
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK).body(foods);
+    }
+
+    @Override
+    public ResponseEntity<List<Food>> getFoodOfCurrentWeek() {
+        ArrayList<Food> foodsOfWeek = new ArrayList<Food>();
+        LocalDate now = LocalDate.now();
+        for (DayOfWeek day : DayOfWeek.values()) {
+            now = now.with(DayOfWeek.valueOf(day.toString()));
+            List<Food> foods = foodDao.findByDate(now);
+            if (foods.size() != 0)
+                foodsOfWeek.addAll(foods);
+        }
+        if (foodsOfWeek.size() == 0)
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK).body(foodsOfWeek);
     }
 
 }

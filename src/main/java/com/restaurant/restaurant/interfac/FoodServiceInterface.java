@@ -18,4 +18,8 @@ public interface FoodServiceInterface {
     public ResponseEntity<List<Food>> getAllFood();
     @GetMapping("/id/{idFood}")
     public ResponseEntity<Food> getFood(int idFood);
+    @GetMapping("/day")
+    public ResponseEntity<List<Food>> getFoodOfCurrentDay();
+    @GetMapping("/week")
+    public ResponseEntity<List<Food>> getFoodOfCurrentWeek();
 }

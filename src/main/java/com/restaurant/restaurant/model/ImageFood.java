@@ -22,6 +22,5 @@ public class ImageFood {
     private int id;
     private int idFood;
     private String name;
-    @Lob
-    private byte[] image;
+    private String imageUrl;
 }

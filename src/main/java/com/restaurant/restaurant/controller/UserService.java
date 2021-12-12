@@ -43,6 +43,15 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    public ResponseEntity<Void> deleteUser(int idUser) {
+        User user = userDao.findById(idUser);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        userDao.delete(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
     public ResponseEntity<List<User>> getAllUser() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(userDao.findAll());
@@ -58,4 +67,13 @@ public class UserService implements UserServiceInterface {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
+
+    @Override
+    public ResponseEntity<User> getUser(String token) {
+        User user = userDao.findByToken(token);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
 }

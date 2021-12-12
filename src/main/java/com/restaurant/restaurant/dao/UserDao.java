@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Repository
-public interface UserDao extends JpaRepository<User, Integer>{
+public interface UserDao extends JpaRepository<User, Integer> {
     User findById(int id);
 
     User findByEmail(String email);
@@ -17,4 +17,5 @@ public interface UserDao extends JpaRepository<User, Integer>{
 
     User findByLastName(String lastName);
 
+    User findByToken(String token);
 }

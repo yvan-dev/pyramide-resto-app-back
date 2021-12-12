@@ -1,5 +1,8 @@
 package com.restaurant.restaurant.model;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,6 +24,10 @@ public class Food {
     private int id;
     private String name;
     private String type;
+    @Column(columnDefinition = "varchar(999)")
     private String description;
+    @Column(columnDefinition = "varchar(999)")
     private String ingredients;
+    private LocalDate date;
+    private String day;
 }

@@ -15,7 +15,7 @@ public interface ImageFoodDao extends JpaRepository<ImageFood, Integer> {
 
     ImageFood findByName(String name);
 
-    ImageFood findByImage(byte[] image);
+    ImageFood findByImageUrl(String imageUrl);
 
     List<ImageFood> findByIdFood(int idFood);
 }
